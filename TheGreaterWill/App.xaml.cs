@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace TheGreaterWill
 {
@@ -13,23 +14,26 @@ namespace TheGreaterWill
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+        private MainWindow mainWindow;
 
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
             // Logo.xaml 윈도우 생성
             var splashScreen = new TheGreaterWill.Logo.Logo();
             splashScreen.Show();
 
             // 3초 대기
-            System.Threading.Thread.Sleep(3000);
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(3) };
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
 
-            // Logo.xaml 닫기
-            splashScreen.Close();
-
-            // MainWindow 표시
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+                mainWindow = new MainWindow();
+                Application.Current.MainWindow = mainWindow;
+                mainWindow.Show();
+                splashScreen.Close();
+            };
+            timer.Start();
         }
     }
 }
