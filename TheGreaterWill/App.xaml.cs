@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using TheGreaterWill.Check;
 
 namespace TheGreaterWill
 {
@@ -20,7 +21,7 @@ namespace TheGreaterWill
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             // Logo.xaml 윈도우 생성
-            var splashScreen = new TheGreaterWill.Logo.Logo();
+            var splashScreen = new TheGreaterWill.Logo.Logo();  
             splashScreen.Show();
 
             // 3초 대기
@@ -31,7 +32,7 @@ namespace TheGreaterWill
 
                 bool isSaveInfo = new TheGreaterWill.Check.JsonFind().CheckJsonFile();
 
-                //여기서 파일 있는지 체크해서 해당 행동 해주면됨 추후 수정 바람
+                //여기서 파일 있는지 체크해서 해당 행동 해주면됨 추후 수정 
                 if (isSaveInfo)
                 {
                     mainWindow = new MainWindow();
@@ -40,7 +41,9 @@ namespace TheGreaterWill
                 }
                 else
                 {
-                    Debug.WriteLine("파일 없음");
+                    InsertInfo insertInfo = new InsertInfo();
+                    Application.Current.MainWindow = insertInfo;
+                    insertInfo.Show();
                 }
                 splashScreen.Close();
             };

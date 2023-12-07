@@ -24,18 +24,8 @@ namespace TheGreaterWill
         public MainWindow()
         {
             InitializeComponent();
-            Debug.WriteLine("MainWindow: 초기화 완료");
-            this.Loaded += MainWindow_Loaded;
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("클릭완료");
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("MainWindow: 로드 완료");
-        }
     }
 }

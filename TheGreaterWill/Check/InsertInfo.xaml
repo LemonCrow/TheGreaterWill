@@ -1,0 +1,33 @@
+﻿<Window x:Class="TheGreaterWill.Check.InsertInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TheGreaterWill.Check"
+        xmlns:view="clr-namespace:TheGreaterWill.ViewModels"
+        mc:Ignorable="d"
+        Background="#343541"
+        Title="InsertInfo" Height="450" Width="800">
+    <Window.DataContext>
+        <view:UserInputViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <ComboBox HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120" 
+                  ItemsSource="{Binding Path=NumberOfEntries}">
+            <!-- ComboBoxItem 정의 -->
+        </ComboBox>
+
+        <ItemsControl ItemsSource="{Binding Entries}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding UserName}" Width="200" Margin="2"/>
+                        <Button Content="경로 선택" Width="100" Margin="2" Command="{Binding SelectPathCommand}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button Content="다음" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Bottom" Width="80" Command="{Binding NextCommand}"/>
+    </Grid>
+</Window>

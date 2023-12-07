@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace TheGreaterWill.Check
 {
     /// <summary>
-    /// InsertId.xaml에 대한 상호 작용 논리
+    /// InsertInfo.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class InsertId : Window
+    public partial class InsertInfo : Window
     {
-        public InsertId()
+        public InsertInfo()
         {
             InitializeComponent();
         }

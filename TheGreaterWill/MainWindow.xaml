@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBox x:Name="inputTextBox" Margin=" 30 10 30 10" Width="500"/>
             <!-- 저장 버튼 -->
-            <Button Content="저장" Margin="10" Width="100" Click="Button_Click" />
+            <Button Content="저장" Margin="10" Width="100" />
             <!-- 불러오기 버튼 -->
             <Button Content="불러오기" Margin="10" Width="100"/>
             <!-- 이미지 미리보기 -->
