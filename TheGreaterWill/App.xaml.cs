@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,9 +29,19 @@ namespace TheGreaterWill
             {
                 timer.Stop();
 
-                mainWindow = new MainWindow();
-                Application.Current.MainWindow = mainWindow;
-                mainWindow.Show();
+                bool isSaveInfo = new TheGreaterWill.Check.JsonFind().CheckJsonFile();
+
+                //여기서 파일 있는지 체크해서 해당 행동 해주면됨 추후 수정 바람
+                if (isSaveInfo)
+                {
+                    mainWindow = new MainWindow();
+                    Application.Current.MainWindow = mainWindow;
+                    mainWindow.Show();
+                }
+                else
+                {
+                    Debug.WriteLine("파일 없음");
+                }
                 splashScreen.Close();
             };
             timer.Start();
