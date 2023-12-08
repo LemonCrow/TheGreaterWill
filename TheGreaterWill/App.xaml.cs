@@ -16,7 +16,7 @@ namespace TheGreaterWill
     /// </summary>
     public partial class App : Application
     {
-        private MainWindow mainWindow;
+        private MainWindow? mainWindow;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -30,14 +30,17 @@ namespace TheGreaterWill
             {
                 timer.Stop();
 
-                bool isSaveInfo = new TheGreaterWill.Check.JsonFind().CheckJsonFile();
+                bool isSaveInfo = new JsonFind().CheckJsonFile();
 
                 //여기서 파일 있는지 체크해서 해당 행동 해주면됨 추후 수정 
                 if (isSaveInfo)
                 {
                     mainWindow = new MainWindow();
-                    Application.Current.MainWindow = mainWindow;
-                    mainWindow.Show();
+                    if (mainWindow != null)
+                    {
+                        Application.Current.MainWindow = mainWindow;
+                        mainWindow.Show();
+                    }
                 }
                 else
                 {

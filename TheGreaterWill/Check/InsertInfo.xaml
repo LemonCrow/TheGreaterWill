@@ -13,16 +13,27 @@
     </Window.DataContext>
     <Grid>
         <ComboBox HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120" 
-                  ItemsSource="{Binding Path=NumberOfEntries}">
-            <!-- ComboBoxItem 정의 -->
+                  SelectedValue="{Binding NumberOfEntries, Mode=TwoWay}"
+                  SelectedValuePath="Content">
+            <ComboBoxItem Content="1" />
+            <ComboBoxItem Content="2" />
+            <ComboBoxItem Content="3" />
+            <ComboBoxItem Content="4" />
+            <ComboBoxItem Content="5" />
+            <ComboBoxItem Content="6" />
+            <ComboBoxItem Content="7" />
+            <ComboBoxItem Content="8" />
+            <ComboBoxItem Content="9" />
+            <ComboBoxItem Content="10" />
         </ComboBox>
 
         <ItemsControl ItemsSource="{Binding Entries}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <!-- 각 UserInput 객체에 대한 포맷 정의 -->
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding UserName}" Width="200" Margin="2"/>
-                        <Button Content="경로 선택" Width="100" Margin="2" Command="{Binding SelectPathCommand}"/>
+                        <TextBox Text="{Binding UserName}" Width="200" Margin="5"/>
+                        <!-- 기타 UI 요소 -->
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
