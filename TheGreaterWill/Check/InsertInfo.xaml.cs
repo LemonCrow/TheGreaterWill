@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TheGreaterWill.ViewModels;
 
 namespace TheGreaterWill.Check
 {
@@ -22,6 +23,17 @@ namespace TheGreaterWill.Check
         public InsertInfo()
         {
             InitializeComponent();
+            var viewModel = new UserInputViewModel();
+            this.DataContext = viewModel;
+
+            viewModel.CloseRequested += () => this.Close();
+            viewModel.WindowChangeRequested += OnOpenNewWindow;
+        }
+
+        private void OnOpenNewWindow()
+        {
+            MainWindow anotherWindow = new MainWindow();
+            anotherWindow.Show();
         }
     }
 }

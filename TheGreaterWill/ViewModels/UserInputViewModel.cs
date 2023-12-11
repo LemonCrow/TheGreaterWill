@@ -9,6 +9,7 @@ using System.IO;
 using System.Diagnostics;
 using TheGreaterWill.Models;
 using System.Windows.Shapes;
+using System;
 
 namespace TheGreaterWill.ViewModels
 {
@@ -17,14 +18,24 @@ namespace TheGreaterWill.ViewModels
     {
         //private int _numberOfEntries;
         private string _chPath;
+        private string _chName;
+        private string _alertMsg;
 
         JsonEditor jsonEditor = new JsonEditor();
 
+        public event Action WindowChangeRequested;
+        public event Action CloseRequested;
+
+        public virtual void OnWindowChangeRequested()
+        {
+            WindowChangeRequested?.Invoke();
+        }
+
         //public ObservableCollection<SaveInfoData> Entries { get; set; }
 
-        public ICommand FilePathCommand { get; private set; }
+        public ICommand FilePathCommand { get; }
 
-        
+        public ICommand CreateJsonFileCommand { get; }
 
 #region 콤보박스
         //public int NumberOfEntries
@@ -37,7 +48,7 @@ namespace TheGreaterWill.ViewModels
         //        UpdateEntries(_numberOfEntries);
         //    }
         //}
-#endregion
+        #endregion
 
         public string ChPath
         {
@@ -46,6 +57,26 @@ namespace TheGreaterWill.ViewModels
             {
                 _chPath = value;
                 OnPropertyChanged (nameof(ChPath));
+            }
+        }
+
+        public string ChName
+        {
+            get { return _chName; }
+            set
+            {
+                _chName = value;
+                OnPropertyChanged (nameof(ChName));
+            }
+        }
+
+        public string AlertMsg
+        {
+            get { return _alertMsg; }
+            set
+            {
+                _alertMsg = value;
+                OnPropertyChanged(nameof(AlertMsg));
             }
         }
 
@@ -58,15 +89,29 @@ namespace TheGreaterWill.ViewModels
         public UserInputViewModel() 
         {
             ChPath = "선택 안함";
-            jsonEditor.CreateJsonFile("test", "123");
             //Entries = new ObservableCollection<SaveInfoData>();
             FilePathCommand = new RelayCommand(OpenFolderBrowserDialogWrapper);
+            CreateJsonFileCommand = new RelayCommand(CreateJsonFileWrapper);
         }
 
         //폴더 경로 받아오기
         private void OpenFolderBrowserDialogWrapper()
         {
             ChPath = jsonEditor.OpenFolderBrowserDialog();
+        }
+
+        private void CreateJsonFileWrapper() 
+        {
+            Debug.WriteLine(ChName + " : " + ChPath);
+            if (ChName != null && ChPath != "선택 안함")
+            {
+                jsonEditor.CreateJsonFile(ChName, ChPath);
+                OnWindowChangeRequested();
+                CloseRequested?.Invoke();
+            }
+            else
+                AlertMsg = "공백이 존재합니다.";
+
         }
 
         #region 콤보박스

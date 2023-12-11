@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TheGreaterWill.ViewModels;
 
 namespace TheGreaterWill
 {
@@ -21,10 +22,12 @@ namespace TheGreaterWill
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private UserInputViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
     }

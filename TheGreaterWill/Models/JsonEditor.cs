@@ -44,8 +44,14 @@ namespace TheGreaterWill.Models
                 new SaveInfoData { ChName = chName, ChPath = chPath }
             };
 
-                string json = JsonSerializer.Serialize(saveData, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText("ChSaveData.json", json);
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                };
+
+                string json = JsonSerializer.Serialize(saveData, options);
+                File.WriteAllText("ChSaveData.json", json, Encoding.UTF8);
 
                 return "저장 완료";
             }
