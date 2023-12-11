@@ -11,7 +11,13 @@
     <Window.DataContext>
         <view:UserInputViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--#region 임시보류 -->
         <ComboBox HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120" 
                   SelectedValue="{Binding NumberOfEntries, Mode=TwoWay}"
                   SelectedValuePath="Content">
@@ -25,20 +31,31 @@
             <ComboBoxItem Content="8" />
             <ComboBoxItem Content="9" />
             <ComboBoxItem Content="10" />
-        </ComboBox>
+        </ComboBox> 
 
         <ItemsControl ItemsSource="{Binding Entries}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate> 
                     <!-- 각 UserInput 객체에 대한 포맷 정의 -->
+        
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding UserName}" Width="200" Margin="5"/>
+                        <TextBox Width="200" Margin="5"/>
+                        <Button Content="폴더 선택" Command="{Binding FilePathCommand}" />
+                        <TextBlock Text="{Binding FilePath}" /> 
                         <!-- 기타 UI 요소 -->
+                            
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <!--#endregion-->
 
-        <Button Content="다음" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Bottom" Width="80" Command="{Binding NextCommand}"/>
+        <TextBox Grid.Row="0" Margin="5"/>
+        <TextBlock Grid.Row="1" Margin="5" Text="{Binding FilePath}" Foreground="White"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="폴더 선택" Width="80" Margin="5" Command="{Binding FilePathCommand}"/>
+            <Button Content="다음" Width="80" Margin="5" Command="{Binding NextCommand}"/>
+        </StackPanel>
+
     </Grid>
 </Window>
