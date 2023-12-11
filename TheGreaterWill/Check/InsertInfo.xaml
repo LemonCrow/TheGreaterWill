@@ -50,8 +50,8 @@
         </ItemsControl>
         <!--#endregion-->
 
-        <TextBox Grid.Row="0" Margin="5"/>
-        <TextBlock Grid.Row="1" Margin="5" Text="{Binding FilePath}" Foreground="White"/>
+        <TextBox Grid.Row="0" Margin="5" Text="{Binding chName}"/>
+        <TextBlock Grid.Row="1" Margin="5" Text="{Binding ChPath}" Foreground="White"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="폴더 선택" Width="80" Margin="5" Command="{Binding FilePathCommand}"/>
             <Button Content="다음" Width="80" Margin="5" Command="{Binding NextCommand}"/>

@@ -7,37 +7,45 @@ using System.ComponentModel;
 using Microsoft.Win32;
 using System.IO;
 using System.Diagnostics;
+using TheGreaterWill.Models;
+using System.Windows.Shapes;
 
 namespace TheGreaterWill.ViewModels
 {
 
     public class UserInputViewModel : DependencyObject, INotifyPropertyChanged
     {
-        private int _numberOfEntries;
-        private string _filePath;
+        //private int _numberOfEntries;
+        private string _chPath;
 
-        public ObservableCollection<SaveInfoData> Entries { get; set; }
+        JsonEditor jsonEditor = new JsonEditor();
+
+        //public ObservableCollection<SaveInfoData> Entries { get; set; }
 
         public ICommand FilePathCommand { get; private set; }
 
-        public int NumberOfEntries
-        {
-            get { return _numberOfEntries; }
-            set
-            {
-                _numberOfEntries = value;
-                OnPropertyChanged(nameof(NumberOfEntries));
-                UpdateEntries(_numberOfEntries);
-            }
-        }
+        
 
-        public string FilePath 
+#region 콤보박스
+        //public int NumberOfEntries
+        //{
+        //    get { return _numberOfEntries; }
+        //    set
+        //    {
+        //        _numberOfEntries = value;
+        //        OnPropertyChanged(nameof(NumberOfEntries));
+        //        UpdateEntries(_numberOfEntries);
+        //    }
+        //}
+#endregion
+
+        public string ChPath
         {
-            get { return _filePath; }
+            get { return _chPath; }
             set 
             {
-                _filePath = value;
-                OnPropertyChanged (nameof(FilePath));
+                _chPath = value;
+                OnPropertyChanged (nameof(ChPath));
             }
         }
 
@@ -49,39 +57,30 @@ namespace TheGreaterWill.ViewModels
 
         public UserInputViewModel() 
         {
-            
-            FilePath = "선택 안함";
-            Entries = new ObservableCollection<SaveInfoData>();
-            FilePathCommand = new RelayCommand(OpenFolderBrowserDialog);
+            ChPath = "선택 안함";
+            jsonEditor.CreateJsonFile("test", "123");
+            //Entries = new ObservableCollection<SaveInfoData>();
+            FilePathCommand = new RelayCommand(OpenFolderBrowserDialogWrapper);
         }
 
-        private void UpdateEntries(int count)
+        //폴더 경로 받아오기
+        private void OpenFolderBrowserDialogWrapper()
         {
-            Entries.Clear();
-            for (int i = 0; i < count; i++)
-            {
-                Entries.Add(new SaveInfoData());
-            }
+            ChPath = jsonEditor.OpenFolderBrowserDialog();
         }
 
-        private void OpenFolderBrowserDialog()
-        {
-            Debug.WriteLine("일단 파일 메소드 테스트");
-            var dialog = new OpenFileDialog
-            {
-                CheckFileExists = false,
-                CheckPathExists = true,
-                FileName = "폴더 선택", // 사용자에게 표시될 텍스트
-                Filter = "Folder|*.folder", // 폴더 선택을 위한 가상 필터
-                ValidateNames = false, // 파일 이름 검증 비활성화
-            };
+        #region 콤보박스
+        //private void UpdateEntries(int count)
+        //{
+        //    Entries.Clear();
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        Entries.Add(new SaveInfoData());
+        //    }
+        //}
+        #endregion
 
-            if (dialog.ShowDialog() == true)
-            {
-                Debug.WriteLine("if문 테스트");
-                FilePath = Path.GetDirectoryName(dialog.FileName);
-            }
-        }
+
 
     }
 
