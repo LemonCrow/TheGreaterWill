@@ -62,6 +62,19 @@ namespace TheGreaterWill.Models
             
         }
 
+        internal List<SaveInfoData> LoadJsonFile()
+        {
+            string filePath = "ChSaveData.json";
+
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                return JsonSerializer.Deserialize<List<SaveInfoData>>(json);
+            }
+
+            return  new List<SaveInfoData>();
+        }
+
 
     }
 

@@ -28,6 +28,7 @@ namespace TheGreaterWill
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
 
     }

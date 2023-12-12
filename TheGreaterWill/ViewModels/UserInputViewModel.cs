@@ -102,8 +102,8 @@ namespace TheGreaterWill.ViewModels
 
         private void CreateJsonFileWrapper() 
         {
-            Debug.WriteLine(ChName + " : " + ChPath);
-            if (ChName != null && ChPath != "선택 안함")
+            
+            if (ChName != null && ChPath != "선택 안함" && ChName != "")
             {
                 jsonEditor.CreateJsonFile(ChName, ChPath);
                 OnWindowChangeRequested();
