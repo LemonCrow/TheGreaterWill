@@ -11,7 +11,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
 
         <!-- 세이브 파일 목록 -->
@@ -21,13 +22,14 @@
 
         <!-- 저장 및 불러오기 버튼 영역 -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBox x:Name="inputTextBox" Margin=" 30 10 30 10" Width="500"/>
+            <TextBox x:Name="inputTextBox" Margin=" 30 10 30 10" Width="500" Text="{Binding SaveName}"/>
             <!-- 저장 버튼 -->
-            <Button Content="저장" Margin="10" Width="100" />
+            <Button Content="저장" Margin="10" Width="100" Command="{Binding SaveCommand}"/>
             <!-- 불러오기 버튼 -->
             <Button Content="불러오기" Margin="10" Width="100"/>
             <!-- 이미지 미리보기 -->
             <Image x:Name="previewImage" Height="100" Margin="5"/>
         </StackPanel>
+        <TextBlock Grid.Row="2" Text="{Binding AlertMsg}" Foreground="red"/>
     </Grid>
 </Window>
