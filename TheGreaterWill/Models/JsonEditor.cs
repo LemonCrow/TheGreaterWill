@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -69,6 +70,7 @@ namespace TheGreaterWill.Models
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
+                Debug.WriteLine(json);
                 return JsonSerializer.Deserialize<List<SaveInfoData>>(json);
             }
 

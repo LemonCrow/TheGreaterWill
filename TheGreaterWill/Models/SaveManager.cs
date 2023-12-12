@@ -36,5 +36,39 @@ namespace TheGreaterWill.Models
                 return false;
             }
         }
+
+        internal bool FileLoad(List<SaveInfoData> ch, string saveName)
+        {
+            try
+            {
+                if (!Directory.Exists(ch[0].ChName))
+                {
+                    return false;
+                }
+
+                string zipFilePath = Path.Combine(ch[0].ChName, saveName);
+
+                var encoding = Encoding.UTF8;
+
+                using (ZipArchive archive = ZipFile.OpenRead(zipFilePath))
+                {
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        string destinationPath = Path.GetFullPath(Path.Combine(ch[0].ChPath, entry.FullName));
+
+                        if (destinationPath.StartsWith(ch[0].ChPath, StringComparison.Ordinal))
+                        {
+                            entry.ExtractToFile(destinationPath, true);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

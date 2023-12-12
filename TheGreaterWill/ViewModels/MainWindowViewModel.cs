@@ -60,6 +60,7 @@ namespace TheGreaterWill.ViewModels
             saveManager = new SaveManager();
             SaveData = jsonEditor.LoadJsonFile();
             SaveCommand = new RelayCommand(SaveCommandWrapper);
+            
         }
 
         private void SaveCommandWrapper()
@@ -68,6 +69,7 @@ namespace TheGreaterWill.ViewModels
             {
                 saveManager.FileSave(SaveData, SaveName);
                 AlertMsg = "";
+                SaveName = "";
             }
             else
                 AlertMsg = "제목을 작성해주세요.";
@@ -78,5 +80,5 @@ namespace TheGreaterWill.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        }
     }
-}
